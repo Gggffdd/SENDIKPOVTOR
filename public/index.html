@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoWallet</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">CryptoWallet</h1>
+                <div class="user-info">
+                    <span class="user-id" id="userId">ID: ---</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Balance Card -->
+            <section class="balance-card">
+                <div class="balance-header">
+                    <h2>Общий баланс</h2>
+                    <button class="btn-eye" id="toggleBalance">
+                        <span class="eye-icon">👁️</span>
+                    </button>
+                </div>
+                <div class="balance-amount">
+                    <span class="amount" id="totalBalance">$4,850.25</span>
+                    <span class="change positive">+2.5%</span>
+                </div>
+                <div class="balance-actions">
+                    <button class="btn-action" id="btnSend">
+                        <span class="icon">➡️</span>
+                        Отправить
+                    </button>
+                    <button class="btn-action" id="btnReceive">
+                        <span class="icon">⬅️</span>
+                        Получить
+                    </button>
+                    <button class="btn-action" id="btnSwap">
+                        <span class="icon">🔄</span>
+                        Обмен
+                    </button>
+                </div>
+            </section>
+
+            <!-- Portfolio -->
+            <section class="portfolio">
+                <h3>Мой портфель</h3>
+                <div class="assets-list" id="assetsList">
+                    <!-- Assets will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Recent Transactions -->
+            <section class="transactions">
+                <div class="section-header">
+                    <h3>Последние транзакции</h3>
+                    <button class="btn-view-all" id="viewAllTransactions">Все</button>
+                </div>
+                <div class="transactions-list" id="transactionsList">
+                    <!-- Transactions will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Navigation -->
+        <nav class="navigation">
+            <button class="nav-item active" data-tab="portfolio">
+                <span class="nav-icon">💰</span>
+                <span class="nav-text">Портфель</span>
+            </button>
+            <button class="nav-item" data-tab="market">
+                <span class="nav-icon">📈</span>
+                <span class="nav-text">Рынок</span>
+            </button>
+            <button class="nav-item" data-tab="swap">
+                <span class="nav-icon">🔄</span>
+                <span class="nav-text">Обмен</span>
+            </button>
+            <button class="nav-item" data-tab="history">
+                <span class="nav-icon">📋</span>
+                <span class="nav-text">История</span>
+            </button>
+        </nav>
+
+        <!-- Modals -->
+        <div id="sendModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Отправить криптовалюту</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Выберите валюту:</label>
+                        <select id="sendCurrency" class="form-select">
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="USDT">Tether (USDT)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Адрес получателя:</label>
+                        <input type="text" id="recipientAddress" class="form-input" placeholder="Введите адрес кошелька">
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма:</label>
+                        <input type="number" id="sendAmount" class="form-input" placeholder="0.00" step="0.00000001">
+                    </div>
+                    <div class="balance-info" id="sendBalanceInfo">
+                        Доступно: 0.00000000 BTC
+                    </div>
+                    <button class="btn-primary" id="confirmSend">Подтвердить отправку</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="receiveModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Получить криптовалюту</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Выберите валюту:</label>
+                        <select id="receiveCurrency" class="form-select">
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="USDT">Tether (USDT)</option>
+                        </select>
+                    </div>
+                    <div class="qr-code">
+                        <div class="qr-placeholder" id="qrCode">QR-код будет здесь</div>
+                    </div>
+                    <div class="address-display">
+                        <code id="walletAddress">Загрузка...</code>
+                        <button class="btn-copy" id="copyAddress">Копировать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Загрузка...</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+  </html>
